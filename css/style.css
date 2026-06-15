@@ -1,0 +1,595 @@
+:root {
+    --bg-color: #000000;
+    --surface-color: #0a0a0a;
+    --gold-accent: #D4AF37;
+    --gold-metallic: linear-gradient(135deg, #BF953F, #FCF6BA, #B38728, #FBF5B7, #AA771C);
+    --text-primary: #F5F5F5;
+    --text-secondary: rgba(255, 255, 255, 0.6);
+    
+    --font-heading: 'Cinzel', serif;
+    --font-body: 'Inter', sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html.lenis {
+    height: auto;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-primary);
+    font-family: var(--font-body);
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    cursor: none;
+}
+
+/* Lenis */
+.lenis.lenis-smooth { scroll-behavior: auto; }
+.lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+.lenis.lenis-stopped { overflow: hidden; }
+
+/* Custom Cursor (Upgraded to Exclusion) */
+.cursor {
+    position: fixed;
+    top: 0; left: 0;
+    width: 8px; height: 8px;
+    background-color: #ffffff;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 10000;
+    transform: translate(-50%, -50%);
+    mix-blend-mode: exclusion;
+}
+
+.cursor-follower {
+    position: fixed;
+    top: 0; left: 0;
+    width: 40px; height: 40px;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: width 0.3s, height 0.3s, background-color 0.3s;
+    mix-blend-mode: exclusion;
+}
+
+.cursor-follower.active {
+    width: 60px; height: 60px;
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Film Grain Overlay */
+.film-grain {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    pointer-events: none;
+    z-index: 9998;
+    opacity: 0.04;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
+
+/* Typography */
+h1, h2, h3, .title, .massive-text {
+    font-family: var(--font-heading);
+    font-weight: 400;
+    line-height: 1.1;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.title {
+    font-size: clamp(3rem, 8vw, 7rem);
+    margin-bottom: 1rem;
+}
+
+p, .subtitle, .large-text {
+    font-family: var(--font-body);
+    font-weight: 300;
+    line-height: 1.5;
+}
+
+.hero-subtitle {
+    font-size: clamp(1rem, 2vw, 1.5rem);
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+    text-shadow: 0 4px 15px rgba(0,0,0,0.8);
+}
+
+/* Cinematic Text (The fix for "chữ xấu quá" and "bị che") */
+.cinematic-text {
+    font-family: var(--font-heading);
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    font-weight: 400;
+    text-shadow: 0 10px 30px rgba(0,0,0,0.9), 0 2px 10px rgba(0,0,0,0.5); /* Heavy optical shadow */
+    text-align: center;
+}
+
+.gold-gradient {
+    color: var(--gold-accent);
+    text-shadow: 0 4px 20px rgba(0,0,0,0.8);
+    display: inline-block;
+}
+
+.mix-blend {
+    /* Removed mix-blend-mode: overlay because it makes text dark on dark videos */
+    color: #fff;
+    opacity: 0.95;
+    text-shadow: 0 4px 20px rgba(0,0,0,0.8);
+}
+
+/* Preloader */
+.preloader {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    background-color: var(--bg-color);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+.preloader-line {
+    width: 0%; height: 1px;
+    background: var(--gold-metallic);
+    margin-bottom: 2rem;
+}
+
+.preloader-text {
+    font-size: clamp(1rem, 2vw, 1.5rem);
+    letter-spacing: 0.3em;
+    color: var(--text-secondary);
+}
+
+/* Sound Toggle */
+.sound-toggle {
+    position: fixed;
+    bottom: 2rem; right: 2rem;
+    background: transparent;
+    border: none;
+    color: var(--text-secondary);
+    font-family: var(--font-body);
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    padding: 0.5rem 0;
+    cursor: none;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    mix-blend-mode: difference;
+}
+
+.sound-toggle::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0;
+    width: 100%; height: 1px;
+    background: var(--text-secondary);
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.4s ease;
+}
+
+.sound-toggle:hover::after {
+    transform: scaleX(1);
+    transform-origin: left;
+}
+
+/* Generic Video */
+.bg-video {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    will-change: filter, transform;
+}
+
+.vignette {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: radial-gradient(circle, transparent 40%, rgba(0,0,0,0.85) 100%);
+    pointer-events: none;
+    z-index: 2;
+}
+
+/* SplitType helpers */
+.line, .word, .char { overflow: hidden; display: inline-block; }
+
+/* --- SECTION 1: HERO --- */
+.hero-section {
+    height: 100vh; position: relative;
+}
+
+.hero-mask-container {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    clip-path: inset(0% 0% 0% 0%);
+}
+
+.hero-overlay {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.3);
+}
+
+.hero-content {
+    position: relative; z-index: 10; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;
+}
+
+.scroll-indicator {
+    position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 1px; height: 100px; background: rgba(255, 255, 255, 0.1); z-index: 10;
+}
+
+.scroll-indicator-line {
+    width: 100%; height: 0%; background: var(--gold-accent);
+}
+
+/* --- SECTION 2: EXPLODED VIEW --- */
+.exploded-section {
+    height: 300vh;
+}
+
+.pin-container {
+    height: 100vh; width: 100vw; position: relative; overflow: hidden;
+}
+
+.exploded-content {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    display: flex; align-items: center; justify-content: center; z-index: 10;
+}
+
+.exploded-text {
+    position: absolute; font-size: clamp(1.5rem, 4vw, 3.5rem); max-width: 80%;
+}
+
+/* --- SECTION 3: INSIDE MOVEMENT (Expanding) --- */
+.movement-section {
+    position: relative;
+    height: 300vh;
+    background: var(--bg-color);
+}
+
+.movement-pin {
+    height: 100vh;
+    width: 100vw;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.movement-video-mask {
+    position: absolute;
+    width: 100vw;
+    height: 15vh;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 0;
+    overflow: hidden;
+    z-index: 1;
+    filter: brightness(0.2);
+    will-change: height, filter;
+}
+
+.movement-floating-text {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+    z-index: 2;
+}
+
+.movement-sentence {
+    position: absolute;
+    font-size: clamp(2rem, 4vw, 3rem);
+    letter-spacing: 0.15em;
+    text-shadow: 0 10px 30px rgba(0,0,0,0.9), 0 2px 10px rgba(0,0,0,0.5);
+    opacity: 0; /* Hidden by default for JS animation */
+}
+
+.sentence-1 { top: 25%; left: 10%; }
+.sentence-2 { top: 60%; right: 10%; text-align: right; }
+.sentence-3 { top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; font-size: clamp(2.5rem, 5vw, 4rem); width: 100%; }
+
+/* --- SECTION 4: CRAFTSMANSHIP (Video-in-text) --- */
+.craftsmanship-section {
+    height: 300vh; background: var(--bg-color);
+}
+
+.craftsmanship-pin {
+    height: 100vh; width: 100%; position: relative; overflow: hidden; background: #000; display: flex; justify-content: center; align-items: center;
+}
+
+.video-mask-wrapper {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+}
+
+.craftsmanship-text-mask-layer {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: #000; color: #fff; display: flex; justify-content: center; align-items: center; mix-blend-mode: multiply;
+}
+
+.massive-text {
+    font-size: 9vw; white-space: nowrap; font-weight: 700;
+}
+
+.craftsmanship-overlay-text {
+    position: absolute; z-index: 10; text-align: center; opacity: 0;
+}
+
+/* --- SECTION 5: FINALE --- */
+.finale-section {
+    height: 100vh; position: relative;
+}
+
+.finale-bg-wrapper {
+    position: absolute; width: 100%; height: 100%; opacity: 0.4;
+}
+
+.finale-content {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 10;
+}
+
+.finale-subtitles {
+    margin-top: 2rem; text-align: center;
+}
+
+.finale-subtitle {
+    font-size: clamp(1.2rem, 2vw, 1.8rem); color: var(--text-secondary); margin-bottom: 0.5rem; letter-spacing: 0.1em; text-transform: uppercase;
+}
+
+.finale-fade-overlay {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: #000; opacity: 0; z-index: 20; pointer-events: none;
+}
+
+/* --- HEADER --- */
+.site-header {
+    position: fixed;
+    top: 0; left: 0; width: 100%;
+    padding: 2rem 4rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 9999;
+    mix-blend-mode: difference;
+    color: #fff;
+    pointer-events: none; /* Let clicks pass through if empty, but we have buttons */
+    transition: transform 0.4s ease;
+}
+
+.site-header > * {
+    pointer-events: auto;
+}
+
+.header-left, .header-right {
+    flex: 1;
+}
+
+.header-center {
+    flex: 2;
+    text-align: center;
+}
+
+.brand-logo {
+    font-family: var(--font-heading);
+    font-size: 1.2rem;
+    letter-spacing: 0.5em;
+    font-weight: 400;
+    margin: 0;
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+}
+
+.nav-menu {
+    display: flex;
+    justify-content: center;
+    gap: 2.5rem;
+}
+
+.nav-link {
+    font-family: var(--font-body);
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    color: #fff;
+    text-decoration: none;
+    text-transform: uppercase;
+    opacity: 0.7;
+    transition: opacity 0.3s ease, color 0.3s ease;
+}
+
+.nav-link:hover {
+    opacity: 1;
+    color: var(--gold-accent);
+}
+
+.header-right {
+    text-align: right;
+}
+
+.header-cta {
+    font-family: var(--font-body);
+    font-size: 0.8rem;
+    letter-spacing: 0.2em;
+    color: #fff;
+    text-decoration: none;
+    border-bottom: 1px solid rgba(255,255,255,0.3);
+    padding-bottom: 4px;
+    transition: border-color 0.3s ease;
+}
+
+.header-cta:hover {
+    border-color: #fff;
+}
+
+.header-hidden {
+    transform: translateY(-100%);
+}
+
+/* --- FOOTER --- */
+.site-footer {
+    position: relative;
+    height: 100vh;
+    background: #000;
+    color: #fff;
+    padding: 4rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow: hidden;
+    z-index: 10;
+}
+
+.footer-bg-video {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    object-fit: cover;
+    opacity: 0.15;
+    z-index: 0;
+    filter: grayscale(100%) blur(4px);
+}
+
+.footer-overlay {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: linear-gradient(to bottom, #000 0%, transparent 50%, #000 100%);
+    z-index: 1;
+}
+
+.footer-content {
+    position: relative;
+    z-index: 2;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.footer-top {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.footer-links {
+    display: flex;
+    gap: 4rem;
+}
+
+.footer-links a {
+    color: var(--text-primary);
+    text-decoration: none;
+    font-family: var(--font-body);
+    font-size: 0.8rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    position: relative;
+    padding-bottom: 5px;
+    overflow: hidden;
+}
+
+.footer-links a::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; width: 100%; height: 1px;
+    background: var(--gold-accent);
+    transform: translateX(-101%);
+    transition: transform 0.4s ease;
+}
+
+.footer-links a:hover::after {
+    transform: translateX(0%);
+}
+
+.footer-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+    width: 100%;
+}
+
+.footer-huge-logo {
+    font-family: var(--font-heading);
+    font-size: 16vw;
+    font-weight: 400;
+    letter-spacing: 0.1em;
+    color: transparent;
+    -webkit-text-stroke: 1px rgba(255, 255, 255, 0.2);
+    margin: 0;
+    line-height: 1;
+    position: relative;
+}
+
+.footer-huge-logo::before {
+    content: attr(data-text);
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    color: var(--gold-accent);
+    -webkit-text-stroke: 0px;
+    clip-path: polygon(0 100%, 100% 100%, 100% 100%, 0 100%);
+    transition: clip-path 1.5s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.site-footer.is-visible .footer-huge-logo::before {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+}
+
+.footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    font-family: var(--font-body);
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    letter-spacing: 0.05em;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    padding-top: 2rem;
+    width: 100%;
+}
+
+.footer-tagline {
+    font-size: 1rem;
+    letter-spacing: 0.4em;
+    margin: 0;
+    text-align: center;
+    flex: 1;
+}
+
+.footer-legal {
+    display: flex;
+    gap: 2rem;
+}
+
+.footer-legal a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer-legal a:hover {
+    color: var(--gold-accent);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .movement-video-mask { width: 80vw; height: 50vh; }
+    .sentence-1 { top: 10%; left: 5%; }
+    .sentence-2 { top: 70%; right: 5%; }
+    .sentence-3 { top: 85%; left: 5%; }
+    .cursor, .cursor-follower { display: none; }
+    body { cursor: auto; }
+}

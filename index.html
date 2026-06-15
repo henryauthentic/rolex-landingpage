@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Anatomy of Time</title>
+    
+    <!-- SEO & Meta Tags -->
+    <meta name="description" content="A premium storytelling journey into the craftsmanship of time. Inspired by luxury watchmaking.">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="loading">
+    
+    <!-- Film Grain Overlay -->
+    <div class="film-grain"></div>
+
+    <!-- Custom Cursor -->
+    <div class="cursor"></div>
+    <div class="cursor-follower"></div>
+
+    <!-- HEADER -->
+    <header class="site-header">
+        <div class="header-left">
+            <h1 class="brand-logo">R O L E X</h1>
+        </div>
+        <div class="header-center nav-menu">
+            <a href="#hero" class="nav-link">INTRO</a>
+            <a href="#exploded-view" class="nav-link">MECHANICS</a>
+            <a href="#movement" class="nav-link">MOVEMENT</a>
+            <a href="#craftsmanship" class="nav-link">CRAFTSMANSHIP</a>
+            <a href="#finale" class="nav-link">FINALE</a>
+        </div>
+        <div class="header-right">
+            <a href="#" class="header-cta">DISCOVER</a>
+        </div>
+    </header>
+
+    <!-- Preloader -->
+    <div id="preloader" class="preloader">
+        <div class="preloader-line"></div>
+        <h1 class="preloader-text">THE ANATOMY OF TIME</h1>
+    </div>
+
+    <!-- Sound Toggle -->
+    <button id="sound-toggle" class="sound-toggle magnetic" aria-label="Toggle Sound">
+        <span class="sound-icon"></span>
+        <span class="sound-text">SOUND OFF</span>
+    </button>
+
+    <!-- SECTION 1: HERO -->
+    <section id="hero" class="section hero-section">
+        <div class="hero-mask-container">
+            <video class="bg-video hero-video" autoplay loop muted playsinline>
+                <source src="assets/videos/HERO%20REVEAL.mp4" type="video/mp4">
+            </video>
+            <div class="hero-overlay"></div>
+        </div>
+        
+        <div class="overlay-content hero-content">
+            <h1 class="title hero-title mix-blend">THE ANATOMY<br>OF TIME</h1>
+            <p class="subtitle hero-subtitle">Time cannot be seen.</p>
+        </div>
+        <div class="scroll-indicator">
+            <div class="scroll-indicator-line"></div>
+        </div>
+    </section>
+
+    <!-- SECTION 2: EXPLODED VIEW -->
+    <section id="exploded-view" class="section exploded-section">
+        <div class="pin-container exploded-pin">
+            <video class="bg-video exploded-video" autoplay loop muted playsinline>
+                <source src="assets/videos/EXPLODED%20VIEW.mp4" type="video/mp4">
+            </video>
+            <div class="vignette"></div>
+            <div class="overlay-content exploded-content">
+                <p class="cinematic-text exploded-text exploded-text-1">Hundreds of components work in silence.</p>
+                <p class="cinematic-text exploded-text exploded-text-2 gold-gradient">Precision is never accidental.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 3: INSIDE THE MOVEMENT (Expanding Layout) -->
+    <section id="movement" class="section movement-section">
+        <div class="movement-pin">
+            <div class="movement-video-mask">
+                <video class="bg-video movement-video" autoplay loop muted playsinline>
+                    <source src="assets/videos/INSIDE%20THE%20MOVEMENT.mp4" type="video/mp4">
+                </video>
+            </div>
+            
+            <div class="movement-floating-text">
+                <p class="cinematic-text movement-sentence sentence-1" data-speed="0.8">Every oscillation<br>has a purpose.</p>
+                <p class="cinematic-text movement-sentence sentence-2" data-speed="1.2">Every gear moves<br>in harmony.</p>
+                <p class="cinematic-text movement-sentence sentence-3 gold-gradient" data-speed="1.5">Time lives within<br>the invisible.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 4: CRAFTSMANSHIP (Video-in-Text Masking) -->
+    <section id="craftsmanship" class="section craftsmanship-section">
+        <div class="craftsmanship-pin">
+            <div class="video-mask-wrapper">
+                <video class="bg-video craftsmanship-video" autoplay loop muted playsinline>
+                    <source src="assets/videos/CRAFTSMANSHIP.mp4" type="video/mp4">
+                </video>
+            </div>
+            <div class="craftsmanship-text-mask-layer">
+                <h2 class="massive-text">CRAFTSMANSHIP</h2>
+            </div>
+            
+            <div class="craftsmanship-overlay-text">
+                <h2 class="title craftsmanship-title mix-blend">Craftsmanship transforms<br>mechanics into art.</h2>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 5: FINALE -->
+    <section id="finale" class="section finale-section">
+        <div class="finale-bg-wrapper">
+            <video class="bg-video finale-video" autoplay loop muted playsinline>
+                <source src="assets/videos/HERO%20REVEAL.mp4" type="video/mp4">
+            </video>
+        </div>
+        <div class="finale-fade-overlay"></div>
+        <div class="overlay-content finale-content">
+            <h2 class="title finale-title gold-gradient">THE ANATOMY OF TIME</h2>
+            <div class="finale-subtitles">
+                <p class="subtitle finale-subtitle">Luxury is not what you see.</p>
+                <p class="subtitle finale-subtitle">It is what lies beneath.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="site-footer">
+        <!-- Background video (faint) -->
+        <video class="footer-bg-video" autoplay loop muted playsinline>
+            <source src="assets/videos/CRAFTSMANSHIP.mp4" type="video/mp4">
+        </video>
+        <div class="footer-overlay"></div>
+        
+        <div class="footer-content">
+            <div class="footer-top">
+                <div class="footer-links">
+                    <a href="#" class="magnetic">Watches</a>
+                    <a href="#" class="magnetic">World of Rolex</a>
+                    <a href="#" class="magnetic">Store Locator</a>
+                </div>
+            </div>
+            
+            <div class="footer-center">
+                <h2 class="footer-huge-logo" data-text="ROLEX">ROLEX</h2>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2026 Rolex. All rights reserved.</p>
+                <p class="footer-tagline cinematic-text gold-gradient">Experience true precision.</p>
+                <div class="footer-legal">
+                    <a href="#" class="magnetic">Terms of Use</a>
+                    <a href="#" class="magnetic">Privacy Notice</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://unpkg.com/split-type"></script>
+    <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
