@@ -64,13 +64,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 4. Sound Toggle
     const soundToggle = document.getElementById('sound-toggle');
-    const videos = document.querySelectorAll('video');
     const bgMusic = document.getElementById('bg-music');
     let isMuted = true;
 
     soundToggle.addEventListener('click', () => {
         isMuted = !isMuted;
-        videos.forEach(v => v.muted = isMuted);
         
         if (!isMuted) {
             bgMusic.play().catch(e => console.log("Audio play error:", e));
